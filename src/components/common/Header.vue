@@ -2,7 +2,7 @@
 	<header>
 		<nav class="fixclear">
 			<div class="nav-left">
-				后台管理
+				个人博客后台管理
 			</div>
 			<div class="nav-right">
 				<ul>
@@ -66,7 +66,7 @@
 
 	.nav-left {
 		float: left;
-		width: 90px;
+		width: auto;
 		height: 60px;
 		color: white;
 		line-height: 60px;

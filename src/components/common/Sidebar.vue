@@ -1,5 +1,8 @@
 <template>
 	<el-menu class="diyscrollbar" :default-active="onRoutes" @select="handleSelect" router>
+		<el-menu-item index="content5">
+			<i class="el-icon-menu">首页</i>
+		</el-menu-item>
 		<el-submenu index="content">
 			<template slot="title">
 				<i class="el-icon-menu"></i>一级菜单1
