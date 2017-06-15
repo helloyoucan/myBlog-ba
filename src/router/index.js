@@ -15,22 +15,28 @@ export default new Router({
 		component: resolve => require(['../components/Index.vue'], resolve),
 		children: [{
 			path: '/',
-			redirect: '/content1'
+			redirect: '/Home'
 		}, {
-			path: '/content1',
-			component: resolve => require(['../components/content/content1.vue'], resolve)
+			path: '/Home',
+			component: resolve => require(['../components/Home/Home.vue'], resolve)
 		}, {
-			path: '/content2',
-			component: resolve => require(['../components/content/content2.vue'], resolve)
+			path: '/PersonalInfo',
+			component: resolve => require(['../components/PersonalInfo/PersonalInfo.vue'], resolve)
 		}, {
-			path: '/content3',
-			component: resolve => require(['../components/content/content3.vue'], resolve)
+			path: '/ArticleList',
+			component: resolve => require(['../components/Article/ArticleList.vue'], resolve)
 		}, {
-			path: '/content4',
-			component: resolve => require(['../components/content/content4.vue'], resolve)
+			path: '/ArticleDelete',
+			component: resolve => require(['../components/Article/ArticleDelete.vue'], resolve)
 		}, {
-			path: '/content5',
-			component: resolve => require(['../components/content/content5.vue'], resolve)
+			path: '/BookmarksClassify',
+			component: resolve => require(['../components/Bookmarks/BookmarksClassify.vue'], resolve)
+		}, {
+			path: '/BookmarksList',
+			component: resolve => require(['../components/Bookmarks/BookmarksList.vue'], resolve)
+		}, {
+			path: '/BookmarksDelect',
+			component: resolve => require(['../components/Bookmarks/BookmarksDelect.vue'], resolve)
 		}]
 
 	}, ]

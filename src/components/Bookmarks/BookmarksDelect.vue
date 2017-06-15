@@ -1,9 +1,6 @@
 <template>
 	<div>
-		content1
-		<div id="a">
-
-		</div>
+		content2
 	</div>
 </template>
 
@@ -11,7 +8,4 @@
 </script>
 
 <style>
-	#a {
-		height: 1000px;
-	}
 </style>
