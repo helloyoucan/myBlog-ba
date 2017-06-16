@@ -7,8 +7,8 @@
           class="avatar-uploader"
           action="https://jsonplaceholder.typicode.com/posts/"
           :show-file-list="false"
-          :on-success="handleAvatarSuccess('iconUrl')"
-          :before-upload="beforeAvatarUpload">
+          :on-success="uploadIconSuccess"
+          :before-upload="beforeUploadIcon">
           <img v-if="iconUrl" :src="iconUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -25,11 +25,11 @@
       <div class="right">
         <form id="form-emails">
           <div class="e-col" v-for="(e,index) in emails">
-            <el-input v-on:value="e" placeholder="请输入邮箱"></el-input>
-            <el-button v-if="index" type="text">删除</el-button>
+            <el-input v-bind:value="e" v-on:change="emails[index]=$event" placeholder="请输入邮箱"></el-input>
+            <el-button v-if="index" type="text" v-on:click="emails.splice(index, 1)">删除</el-button>
           </div>
         </form>
-        <el-button type="primary">添加</el-button>
+        <el-button v-on:click="addEmails" type="primary">添加</el-button>
       </div>
     </div>
     <div class="row">
@@ -47,39 +47,58 @@
               class="avatar-uploader"
               action="https://jsonplaceholder.typicode.com/posts/"
               :show-file-list="false"
-              :on-success="handleAvatarSuccess('iconUrl',o)"
-              :before-upload="beforeAvatarUpload">
+              :on-success="uploadOtherIconSuccess"
+              :before-upload="beforeUploadOtherIcon"
+              :data="{index:index}">
               <img v-if="o.iconUrl" :src="o.iconUrl" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <el-input placeholder="请输入描述"></el-input>
-            <el-input placeholder="请输入地址"></el-input>
-            <el-button v-if="index" type="text">删除</el-button>
+            <el-input v-bind:value="o.name" v-on:change="o.name=$event"
+                      placeholder="请输入描述"></el-input>
+            <el-input v-bind:value="o.url" v-on:change="o.url=$event" placeholder="请输入地址"></el-input>
+            <el-button v-if="index" type="text" v-on:click="others.splice(index, 1)">删除</el-button>
           </div>
         </form>
-        <el-button type="primary">添加</el-button>
+        <el-button v-on:click="addOthers" type="primary">添加</el-button>
       </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="left"></div>
+      <div class="right">
+        <el-button v-on:click="save" type="success" size="large" :loading="btnSaveLoading">{{btnText}}</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue'
   export default {
+    name: 'PersonalInfo',
     data() {
       return {
         iconUrl: '',
         name: '',
-        emails: ['123', '456'],
+        emails: ['0000', '1111'],
         github: '',
-        others: [{}, {}],
+        others: [{
+          iconUrl: '1',
+          name: '1',
+          url: '1'
+        }, {
+          iconUrl: '2',
+          name: '2',
+          url: '2'
+        }],
+        btnSaveLoading: false,
+        btnText: "保存",
       };
     },
     methods: {
-      handleAvatarSuccess(res, file) {
+      uploadIconSuccess(res, file) {
         //this.iconUrl = URL.createObjectURL(file.raw);
       },
-      beforeAvatarUpload(file) {
+      beforeUploadIcon(file) {
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -90,7 +109,26 @@
           this.$message.error('上传头像图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
-      }
+      },
+      uploadOtherIconSuccess(res, file){
+
+      },
+      beforeUploadOtherIcon(file){
+
+      },
+      addEmails(){
+        this.emails.push('');
+      },
+      addOthers(){
+        this.others.push({
+          iconUrl: '',
+          name: '',
+          url: ''
+        });
+      },
+      save(){
+
+      },
     },
     created(){
       this.$emit('setLoading', true);

@@ -1,11 +1,20 @@
 <template>
-	<div>
-		Home
-	</div>
-</template>
+  <div>
 
+  </div>
+</template>
 <script>
+
+  export default {
+    name: '',
+    components: {},
+    data() {
+      return {}
+    },
+    methods: {},
+  }
 </script>
 
-<style>
+<style rel="stylesheet/scss" lang="scss">
+
 </style>
