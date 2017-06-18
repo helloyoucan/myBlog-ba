@@ -21,7 +21,7 @@
           </div>
           <div class="at-preview">文章预览</div>
           <div class="at-handel">
-            <el-button :plain="true" type="success" icon="document"></el-button>
+            <el-button v-on:click="readArticle" :plain="true" type="success" icon="document"></el-button>
             <el-button :plain="true" type="primary" icon="edit"></el-button>
             <el-button :plain="true" type="danger" icon="delete"></el-button>
           </div>
@@ -90,20 +90,24 @@
         :total="400">
       </el-pagination>
     </div>
-    <v-write-modal v-bind:isShow="isShowModal" v-on:closeModal="closeModal"></v-write-modal>
+    <v-write-modal v-bind:isShow="isShowWriteModal" v-on:closeWriteModal="closeWriteModal"></v-write-modal>
+    <v-read-modal v-bind:isShow="isShowReadModal" v-on:closeReadModal="closeReadModal"></v-read-modal>
   </div>
 </template>
 <script>
   import WriteModal from './WriteModal.vue'
+  import ReadModal from './ReadModal.vue'
   export default {
-    name: '',
+    name: 'ArticleList',
     components: {
       'v-write-modal': WriteModal,
+      'v-read-modal': ReadModal,
     },
     data() {
       return {
         search: '',
-        isShowModal: false,
+        isShowWriteModal: false,
+        isShowReadModal: false,
         currentPage: 4,
       }
     },
@@ -112,10 +116,16 @@
 
       },
       addArticle(){
-        this.isShowModal = true;
+        this.isShowWriteModal = true;
       },
-      closeModal(){
-        this.isShowModal = false;
+      readArticle(){
+        this.isShowReadModal = true;
+      },
+      closeWriteModal(){
+        this.isShowWriteModal = false;
+      },
+      closeReadModal(){
+        this.isShowReadModal = false;
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
@@ -186,7 +196,7 @@
         }
       }
     }
-    &>ul{
+    & > ul {
       overflow: hidden;
     }
   }
