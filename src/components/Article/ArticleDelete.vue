@@ -17,15 +17,15 @@
           width="55">
         </el-table-column>
         <el-table-column
+          prop="name"
           label="文章名">
-          <template scope="scope">{{ scope.row.date }}</template>
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="updateTime"
           label="更新日期">
         </el-table-column>
         <el-table-column
-          prop="address"
+          prop="delTime"
           label="删除日期">
         </el-table-column>
         <el-table-column
@@ -63,33 +63,25 @@
       return {
         isShowReadModal: false,
         tableData3: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: '文章名1',
+          updateTime: '2016/04/11',
+          delTime: '2017/05/12'
         }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: '文章名1',
+          updateTime: '2016/04/11',
+          delTime: '2017/05/12'
         }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: '文章名1',
+          updateTime: '2016/04/11',
+          delTime: '2017/05/12'
         }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: '文章名1',
+          updateTime: '2016/04/11',
+          delTime: '2017/05/12'
         }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          name: '文章名1',
+          updateTime: '2016/04/11',
+          delTime: '2017/05/12'
         }],
         multipleSelection: [],
         currentPage: 4,
