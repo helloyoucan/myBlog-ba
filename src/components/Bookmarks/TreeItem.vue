@@ -1,9 +1,10 @@
 <template>
   <span>
   <span>{{node.data.label}}</span>
-    <span>
-      <el-button size="mini">添加</el-button>
-       <el-button size="mini">删除</el-button>
+    <span class="t-handel">
+      <el-button v-on:click.stop="addNode(node.data)" size="mini">添加</el-button>
+      <el-button v-on:click.stop="addNode(node.data)" size="mini">修改</el-button>
+      <el-button v-on:click.stop="delNode(node.data)" size="mini">删除</el-button>
     </span>
   </span>
 </template>
@@ -16,12 +17,29 @@
     data() {
       return {}
     },
-    methods: {},
+    methods: {
+      addNode(node){
+        console.log(node);
+      },
+      delNode(node){
+
+      }
+
+    },
     created(){
     },
   }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-
+  .t-handel {
+    float: right;
+    .el-button {
+      margin-left: 0px;
+      &:last-child:hover {
+        color: red;
+        border-color: red;
+      }
+    }
+  }
 </style>
