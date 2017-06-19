@@ -17,7 +17,6 @@
 			<template slot="title">
 				<i class="el-icon-star-on"></i>书签管理
 			</template>
-			<el-menu-item index="BookmarksClassify">分类管理</el-menu-item>
 			<el-menu-item index="BookmarksList">书签列表</el-menu-item>
 			<el-menu-item index="BookmarksDelect">回收站</el-menu-item>
 		</el-submenu>
@@ -41,7 +40,6 @@
 					ArticleList: "文章列表",
 					ArticleDelete: "回收站",
 					Bookmarks: "书签管理",
-					BookmarksClassify: "分类管理",
 					BookmarksList: "书签列表",
 					BookmarksDelect: "回收站",
 				};
