@@ -1,7 +1,7 @@
 <template>
-  <div class="bookmarks-del">
-    <div class="handel">
-      <el-button type="primary">还原</el-button>
+  <div>
+    <div class="t-r-handel">
+      <el-button type="primary">添加</el-button>
       <el-button type="danger">删除</el-button>
     </div>
     <el-table
@@ -33,13 +33,9 @@
         label="更新日期">
       </el-table-column>
       <el-table-column
-        prop="delTime"
-        label="删除日期">
-      </el-table-column>
-      <el-table-column
         label="操作">
         <template scope="scope">
-          <el-button type="text" size="small">还原</el-button>
+          <el-button type="text" size="small">修改</el-button>
           <el-button type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -62,32 +58,22 @@
           name: '百度一下',
           url: 'http://www.baidu.com',
           classify: '常用',
-          updateTime: '2017/04/04',
-          delTime: '2017/04/09',
-        },{
+          updateTime: '2017/04/04'
+        }, {
           name: '百度一下',
-          url: 'http://www.baidu.com',
+          url: 'www.baidu.com',
           classify: '常用',
-          updateTime: '2017/04/04',
-          delTime: '2017/04/09',
-        },{
+          updateTime: '2017/04/04'
+        }, {
           name: '百度一下',
-          url: 'http://www.baidu.com',
+          url: 'www.baidu.com',
           classify: '常用',
-          updateTime: '2017/04/04',
-          delTime: '2017/04/09',
-        },{
+          updateTime: '2017/04/04'
+        }, {
           name: '百度一下',
-          url: 'http://www.baidu.com',
+          url: 'www.baidu.com',
           classify: '常用',
-          updateTime: '2017/04/04',
-          delTime: '2017/04/09',
-        },{
-          name: '百度一下',
-          url: 'http://www.baidu.com',
-          classify: '常用',
-          updateTime: '2017/04/04',
-          delTime: '2017/04/09',
+          updateTime: '2017/04/04'
         },],
         multipleSelection: [],
       }
@@ -97,24 +83,17 @@
         this.multipleSelection = val;
       },
     },
-    created()
-    {
-      this.$emit('setLoading', true);
-      setTimeout(() => {
-        this.$emit('setLoading', false);
-      }, 1000);
-    }
-    ,
   }
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  .bookmarks-del {
-    padding: 0 10px;
-    .handel {
-      padding: 10px 0;
-    }
+  .t-r-handel {
+    padding-bottom: 10px;
   }
 
-
+  .single-line {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 </style>
