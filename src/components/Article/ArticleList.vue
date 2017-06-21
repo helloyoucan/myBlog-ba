@@ -10,69 +10,17 @@
       <el-button v-on:click="addArticle" type="primary"><i class="el-icon-plus"></i>添加文章</el-button>
     </div>
     <ul>
-      <li>
+      <li v-for="a in articleList">
         <div class="article-item">
-          <div class="at-title">文章标题文章标题文章标题文章标题</div>
-          <div class="at-reading">阅读量：36</div>
-          <div class="at-time">更新时间：2016.01.25 22:10</div>
+          <div class="at-title">{{a.title}}</div>
+          <div class="at-read">阅读量：{{a.reading}}</div>
+          <div class="at-time">更新时间：{{a.update}}</div>
           <div class="at-tags">
-            <el-tag type="primary">标签三</el-tag>
-            <el-tag type="primary">标签三</el-tag>
+            <el-tag type="primary" v-for="t in a.tags">{{t.name}}</el-tag>
           </div>
-          <div class="at-preview">文章预览</div>
+          <div class="at-preview">{{a.preview}}</div>
           <div class="at-handel">
             <el-button v-on:click="readArticle" :plain="true" type="success" icon="document"></el-button>
-            <el-button :plain="true" type="primary" icon="edit"></el-button>
-            <el-button :plain="true" type="danger" icon="delete"></el-button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="article-item">
-          <div class="at-title">文章标题文章标题文章标题文章标题</div>
-          <div class="at-reading">阅读量：36</div>
-          <div class="at-time">更新时间：2016.01.25 22:10</div>
-          <div class="at-tags">
-            <el-tag type="primary">标签三</el-tag>
-            <el-tag type="primary">标签三</el-tag>
-          </div>
-          <div class="at-preview">文章预览</div>
-          <div class="at-handel">
-            <el-button :plain="true" type="success" icon="document"></el-button>
-            <el-button :plain="true" type="primary" icon="edit"></el-button>
-            <el-button :plain="true" type="danger" icon="delete"></el-button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="article-item">
-          <div class="at-title">文章标题文章标题文章标题文章标题</div>
-          <div class="at-reading">阅读量：36</div>
-          <div class="at-time">更新时间：2016.01.25 22:10</div>
-          <div class="at-tags">
-            <el-tag type="primary">标签三</el-tag>
-            <el-tag type="primary">标签三</el-tag>
-          </div>
-          <div class="at-preview">文章预览</div>
-          <div class="at-handel">
-            <el-button :plain="true" type="success" icon="document"></el-button>
-            <el-button :plain="true" type="primary" icon="edit"></el-button>
-            <el-button :plain="true" type="danger" icon="delete"></el-button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="article-item">
-          <div class="at-title">文章标题文章标题文章标题文章标题</div>
-          <div class="at-reading">阅读量：36</div>
-          <div class="at-time">更新时间：2016.01.25 22:10</div>
-          <div class="at-tags">
-            <el-tag type="primary">标签三</el-tag>
-            <el-tag type="primary">标签三</el-tag>
-          </div>
-          <div class="at-preview">文章预览</div>
-          <div class="at-handel">
-            <el-button :plain="true" type="success" icon="document"></el-button>
             <el-button :plain="true" type="primary" icon="edit"></el-button>
             <el-button :plain="true" type="danger" icon="delete"></el-button>
           </div>
@@ -109,6 +57,52 @@
         isShowWriteModal: false,
         isShowReadModal: false,
         currentPage: 4,
+        articleList: [
+          {
+            title: '文章标题文章标题文章标题文章标题',
+            reading: '36',
+            update: '更新时间',
+            tags: [{
+              name: 'html',
+            }, {
+              name: 'css'
+            }],
+            preview: '文章预览内容'
+          },
+          {
+            title: '文章标题文章标题文章标题文章标题',
+            reading: '36',
+            update: '更新时间',
+            tags: [{
+              name: 'html',
+            }, {
+              name: 'css'
+            }],
+            preview: '文章预览内容'
+          },
+          {
+            title: '文章标题文章标题文章标题文章标题',
+            reading: '36',
+            update: '更新时间',
+            tags: [{
+              name: 'html',
+            }, {
+              name: 'css'
+            }],
+            preview: '文章预览内容'
+          },
+          {
+            title: '文章标题文章标题文章标题文章标题',
+            reading: '36',
+            update: '更新时间',
+            tags: [{
+              name: 'html',
+            }, {
+              name: 'css'
+            }],
+            preview: '文章预览内容'
+          },
+        ],
       }
     },
     methods: {
@@ -225,7 +219,7 @@
     padding-top: 7px;
   }
 
-  .at-reading {
+  .at-read {
     @include at();
   }
 
@@ -235,6 +229,12 @@
 
   .at-tags {
     @include at();
+    .el-tag {
+      margin-left: 5px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
   }
 
   .at-preview {

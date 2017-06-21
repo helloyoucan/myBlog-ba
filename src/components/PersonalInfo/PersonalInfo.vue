@@ -82,11 +82,11 @@
         emails: ['0000', '1111'],
         github: '',
         others: [{
-          iconUrl: '1',
+          iconUrl: '',
           name: '1',
           url: '1'
         }, {
-          iconUrl: '2',
+          iconUrl: '',
           name: '2',
           url: '2'
         }],
