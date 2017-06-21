@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import {Loading} from 'element-ui';
   import vHeader from './common/Header'
   import vSidebar from './common/Sidebar'
   export default {
@@ -40,6 +41,10 @@
       setLoading(newValue){
         this.loading = newValue;
       }
+    },
+    created(){
+      let loadingInstance = Loading.service();
+      loadingInstance.close();
     },
   }
 </script>
