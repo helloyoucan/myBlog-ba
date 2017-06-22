@@ -1,5 +1,6 @@
 <template>
-  <div class="login-bg" v-bind:class="{isLogin:isLoading}" :style="{'background-image':'url('+bg+')'}">
+  <div v-loading="fullLoading"
+       element-loading-text="拼命加载中" class="login-bg" :style="{'background-image':'url('+bg+')'}">
     <div class="login-panle">
       <div class="title">
         <h1>后台登陆</h1>
@@ -26,7 +27,7 @@
 
           </el-form-item>
           <el-form-item>
-            <el-button class="login-btn" type="primary" @click="submitForm('formData')" :loading="isLoading">登录
+            <el-button class="login-btn" type="primary" @click="submitForm('formData')" :loading="isBtnLoading">登录
             </el-button>
           </el-form-item>
           <el-form-item>
@@ -66,8 +67,8 @@
         }
       };
       return {
-        bg: bg,
-        isLoading: false,
+        bg,
+        isBtnLoading: false,
         visible: false,
         login_tip: '',
         formData: {
@@ -92,16 +93,23 @@
         }
       }
     },
+    computed: {
+      // 仅读取，值只须为函数
+      fullLoading: function () {
+        return this.$store.state.fullLoading;
+      },
+    },
     methods: {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.isLoading = true;
+            this.isBtnLoading = true;
             //this.visible = true;
             //this.login_tip = "账号或密码错误";
             //this.login_tip = "验证码错误";
             this.$router.push('/Index');
-            Loading.service({text: '加载资源中...'});
+            this.$store.commit('setFullLoading', true);
+            this.$store.commit('setLocalLoading', true);
           } else {
             console.log('error submit!!');
             return false;
@@ -118,10 +126,6 @@
   .login-bg {
     height: 100%;
     position: relative;
-  }
-
-  .login-bg.isLogin {
-    display: none;
   }
 
   .title {

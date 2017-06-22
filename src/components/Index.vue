@@ -7,9 +7,8 @@
       <el-breadcrumb separator="/">
         <el-breadcrumb-item v-for="title in breadcrumb" v-bind:key="title">{{title}}</el-breadcrumb-item>
       </el-breadcrumb>
-      <router-view class="content diyscrollbar" v-loading="loading"
-                   element-loading-text="拼命加载中..."
-                   v-on:setLoading="setLoading"></router-view>
+      <router-view class="content diyscrollbar" v-loading="localLoading"
+                   element-loading-text="拼命加载中..." ></router-view>
     </div>
   </div>
 </template>
@@ -28,23 +27,25 @@
       return {
         breadcrumb: [],
         isHideKMenu: false,
-        loading: true,
       }
+    },
+    computed: {
+      // 仅读取，值只须为函数
+      localLoading: function () {
+        return this.$store.state.localLoading;
+      },
     },
     methods: {
       SetBreadcrumb(text_arr) {
         this.breadcrumb = text_arr;
+        this.$store.commit('setLocalLoading', true);
       },
       hideMenu() {
         this.isHideKMenu = !this.isHideKMenu;
       },
-      setLoading(newValue){
-        this.loading = newValue;
-      }
     },
     created(){
-      let loadingInstance = Loading.service();
-      loadingInstance.close();
+      this.$store.commit('setFullLoading', false);
     },
   }
 </script>

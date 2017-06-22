@@ -129,10 +129,9 @@
       }
     },
     created(){
-      this.$emit('setLoading', true);
       setTimeout(() => {
-        this.$emit('setLoading', false);
-      }, 1000);
+        this.$store.commit('setLocalLoading', false);
+      }, 0);
     }
   }
 </script>
