@@ -9,7 +9,8 @@
 "node-sass": "^4.5.3",
 "vue": "^2.2.6",
 "vue-chartjs": "^2.6.5",
-"vue-router": "^2.3.1"
+"vue-router": "^2.3.1",
+"vuex": "^2.3.1"
 ```
 
 
