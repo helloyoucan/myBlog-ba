@@ -10,6 +10,7 @@ import Vuex from 'vuex';
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Vuex);
+axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios;
 const store = new Vuex.Store({
   state: {

@@ -127,13 +127,20 @@
         });
       },
       save(){
-
+        console.log(this.name);
+        this.$http.post('/savePersonalDetails', {})
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       },
     },
     created(){
       setTimeout(() => {
         this.$store.commit('setLocalLoading', false);
-      },0);
+      }, 0);
     }
   }
 </script>
