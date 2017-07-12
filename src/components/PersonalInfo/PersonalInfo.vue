@@ -5,11 +5,12 @@
       <div class="right">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          name="imageFile"
+          :action="url.uploadIcon"
+          :on-error="uploadIconFail"
           :show-file-list="false"
-          :on-success="uploadIconSuccess"
-          :before-upload="beforeUploadIcon">
-          <img v-if="iconUrl" :src="iconUrl" class="avatar">
+          :on-success="uploadIconSuccess">
+          <img v-if="info.iconUrl" :src="info.iconUrl" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </div>
@@ -17,16 +18,16 @@
     <div class="row">
       <div class="left">昵称&nbsp;:</div>
       <div class="right">
-        <el-input v-model="name" placeholder="请输入昵称"></el-input>
+        <el-input v-model="info.name" placeholder="请输入昵称"></el-input>
       </div>
     </div>
     <div class="row">
       <div class="left">邮箱&nbsp;:</div>
       <div class="right">
         <form id="form-emails">
-          <div class="e-col" v-for="(e,index) in emails">
-            <el-input v-bind:value="e" v-on:change="emails[index]=$event" placeholder="请输入邮箱"></el-input>
-            <el-button v-if="index" type="text" v-on:click="emails.splice(index, 1)">删除</el-button>
+          <div class="e-col" v-for="(e,index) in info.emails">
+            <el-input v-bind:value="e" v-on:change="info.emails[index]=$event" placeholder="请输入邮箱"></el-input>
+            <el-button v-if="index" type="text" v-on:click="info.emails.splice(index, 1)">删除</el-button>
           </div>
         </form>
         <el-button v-on:click="addEmails" type="primary">添加</el-button>
@@ -35,20 +36,20 @@
     <div class="row">
       <div class="left">Github&nbsp;:</div>
       <div class="right">
-        <el-input v-model="github" placeholder="请输入Github地址"></el-input>
+        <el-input v-model="info.github" placeholder="请输入Github地址"></el-input>
       </div>
     </div>
     <div class="row">
       <div class="left">其它&nbsp;:</div>
       <div class="right">
         <form id="form-others">
-          <div class="form-upload-col" v-for="(o,index) in others">
+          <div class="form-upload-col" v-for="(o,index) in info.others">
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              name="imageFile"
+              :action="url.uploadIcon"
               :show-file-list="false"
-              :on-success="uploadOtherIconSuccess"
-              :before-upload="beforeUploadOtherIcon"
+              :http-request="uploadOtherIcon"
               :data="{index:index}">
               <img v-if="o.iconUrl" :src="o.iconUrl" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -56,7 +57,7 @@
             <el-input v-bind:value="o.name" v-on:change="o.name=$event"
                       placeholder="请输入描述"></el-input>
             <el-input v-bind:value="o.url" v-on:change="o.url=$event" placeholder="请输入地址"></el-input>
-            <el-button v-if="index" type="text" v-on:click="others.splice(index, 1)">删除</el-button>
+            <el-button v-if="index" type="text" v-on:click="info.others.splice(index, 1)">删除</el-button>
           </div>
         </form>
         <el-button v-on:click="addOthers" type="primary">添加</el-button>
@@ -72,75 +73,96 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+  import api from '@/url/PersonalInfo.js'
   export default {
     name: 'PersonalInfo',
     data() {
       return {
-        iconUrl: '',
-        name: '',
-        emails: ['0000', '1111'],
-        github: '',
-        others: [{
+        url: {
+          uploadIcon: api.uploadIcon.toString(),
+        },
+        info: {
+          _id: "",
           iconUrl: '',
-          name: '1',
-          url: '1'
-        }, {
-          iconUrl: '',
-          name: '2',
-          url: '2'
-        }],
+          name: '',
+          emails: [],
+          github: '',
+          others: [],
+        },
         btnSaveLoading: false,
         btnText: "保存",
       };
     },
     methods: {
       uploadIconSuccess(res, file) {
-        //this.iconUrl = URL.createObjectURL(file.raw);
-      },
-      beforeUploadIcon(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
+        if (file.response.isSuccess) {
+          this.info.iconUrl = file.response.path;
+        } else {
+          this.$message.error('上传图片失败');
         }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
       },
-      uploadOtherIconSuccess(res, file){
-
+      uploadIconFail(err, file, fileList){
+        this.$message.error('上传图片失败');
       },
-      beforeUploadOtherIcon(file){
-
+      uploadOtherIcon(obj){
+        var formdata = new FormData();
+        formdata.append('imageFile', obj.file);
+        this.$http.post(api.uploadIcon, formdata)
+          .then((response) => {
+            if (response.data.isSuccess) {
+              this.info.others[obj.data.index].iconUrl = response.data.path;
+            } else {
+              this.$message.error('上传图片失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('上传图片失败');
+          });
       },
       addEmails(){
-        this.emails.push('');
+        this.info.emails.push('');
       },
       addOthers(){
-        this.others.push({
+        this.info.others.push({
           iconUrl: '',
           name: '',
           url: ''
         });
       },
-      save(){
-        console.log(this.name);
-        this.$http.post('/savePersonalDetails', {})
-          .then(function (response) {
-            console.log(response);
+      getData(callback){
+        this.$http.get("/getPersonalDetails")
+          .then((response) => {
+            if (response.data.isSuccess) {
+              if (response.data.message != null) {
+                this.info = response.data.message;
+              }
+              callback();
+            } else {
+              this.$message.error('获取个人信息失败');
+            }
           })
-          .catch(function (error) {
-            console.log(error);
+          .catch((error) => {
+            this.$message.error('获取个人信息失败');
+          });
+      },
+      save(){
+        this.$http.post("/savePersonalDetails", this.info)
+          .then((response) => {
+            if (response.data.isSuccess) {
+              this.$message.success('保存成功');
+            } else {
+              this.$message.error('保存失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('保存失败');
           });
       },
     },
     created(){
-      setTimeout(() => {
+      this.getData(() => {
         this.$store.commit('setLocalLoading', false);
-      }, 0);
+      })
     }
   }
 </script>
