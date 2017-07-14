@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3d8b3142-adb6-41cf-bd79-112693f25d8f" name="Default" comment="add vuex">
+    <list default="true" id="3d8b3142-adb6-41cf-bd79-112693f25d8f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Article/ArticleList.vue" afterPath="$PROJECT_DIR$/src/components/Article/ArticleList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Article/ReadModal.vue" afterPath="$PROJECT_DIR$/src/components/Article/ReadModal.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Article/WriteModal.vue" afterPath="$PROJECT_DIR$/src/components/Article/WriteModal.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/common/Sidebar.vue" afterPath="$PROJECT_DIR$/src/components/common/Sidebar.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.js" afterPath="$PROJECT_DIR$/src/main.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,53 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Index.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Index.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="40" column="52" lean-forward="true" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sidebar.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/common/Sidebar.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="46" column="27" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WriteModal.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Article/WriteModal.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3106">
-              <caret line="136" column="28" lean-forward="true" selection-start-line="136" selection-start-column="6" selection-end-line="136" selection-end-column="28" />
-              <folding>
-                <element signature="e#1303#1343#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArticleList.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ArticleList.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1538">
-              <caret line="21" column="65" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReadModal.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/Article/ReadModal.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="12" column="12" lean-forward="true" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+            <state relative-caret-position="462">
+              <caret line="125" column="42" lean-forward="false" selection-start-line="125" selection-start-column="41" selection-end-line="125" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -157,8 +111,8 @@
         <option value="$PROJECT_DIR$/src/components/common/Sidebar.vue" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/components/Article/WriteModal.vue" />
-        <option value="$PROJECT_DIR$/src/components/Article/ArticleList.vue" />
         <option value="$PROJECT_DIR$/src/components/Article/ReadModal.vue" />
+        <option value="$PROJECT_DIR$/src/components/Article/ArticleList.vue" />
       </list>
     </option>
   </component>
@@ -510,7 +464,7 @@
       <workItem from="1498026018147" duration="12993000" />
       <workItem from="1498989802281" duration="13000" />
       <workItem from="1499004143727" duration="947000" />
-      <workItem from="1499668405001" duration="42424000" />
+      <workItem from="1499668405001" duration="44586000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1497490492387</created>
@@ -673,11 +627,18 @@
       <option name="project" value="LOCAL" />
       <updated>1499870718067</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="完成 文章管理">
+      <created>1500023366374</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1500023366374</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143102000" />
+    <option name="totallyTimeSpent" value="145264000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -739,7 +700,8 @@
     <MESSAGE value="配置跨域请求" />
     <MESSAGE value="完成个人信息管理部分" />
     <MESSAGE value="添加url管理部分，方便修改url" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加url管理部分，方便修改url" />
+    <MESSAGE value="完成 文章管理" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成 文章管理" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1029,18 +991,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1538">
-          <caret line="21" column="65" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Article/ReadModal.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="12" column="12" lean-forward="true" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="125" column="42" lean-forward="false" selection-start-line="125" selection-start-column="41" selection-end-line="125" selection-end-column="42" />
           <folding />
         </state>
       </provider>

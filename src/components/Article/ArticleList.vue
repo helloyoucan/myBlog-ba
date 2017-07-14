@@ -123,7 +123,7 @@
             type: 'error'
           }
         ).then(() => {
-          this.$http.post("/article/del", {id: a._id})
+          this.$http.delete("/article/del/" + a._id)
             .then((response) => {
               console.log(response);
               if (response.data.isSuccess) {
