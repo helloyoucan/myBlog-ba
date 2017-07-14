@@ -2,18 +2,17 @@
   <div class="read-modal" v-bind:class="{show :isShow}">
     <span class="el-icon-close" v-on:click="closeModal"></span>
     <div class="article">
-      <div class="a-title">文章标题</div>
+      <div class="a-title">{{readArticle && readArticle.title}}</div>
       <div class="a-tags">
-        <el-tag type="primary">标签三</el-tag>
-        <el-tag type="primary">标签三</el-tag>
+        <el-tag type="primary" v-for="t in readArticle && readArticle.tags">{{t}}</el-tag>
       </div>
       <div class="a-msg">
-        <span class="am-time">更新时间&nbsp;:&nbsp;2016.05.12&nbsp;05:56</span>
-        <span class="am-read">阅读&nbsp;:&nbsp;56</span>
+        <span class="am-time">更新时间&nbsp;:&nbsp;{{readArticle && readArticle.meta.updateAt.replace('T', ' ').slice(0, -5)}}</span>
+        <span class="am-read">阅读&nbsp;:&nbsp;{{readArticle && readArticle.read}}</span>
         <span class="am-comment">评论&nbsp;:&nbsp;2</span>
       </div>
       <div class="a-content">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci delectus, fugiat in ipsum maxime nihil obcaecati porro quasi quo recusandae reprehenderit soluta veniam, veritatis? Aspernatur eius ex facere nobis ratione!
+        {{readArticle && readArticle.content}}
       </div>
       <div class="a-comment">
         <h3>2条留言</h3>
@@ -49,7 +48,7 @@
 
   export default {
     name: '',
-    props: ['isShow'],
+    props: ['isShow', 'readArticle'],
     components: {},
     data() {
       return {}
@@ -59,6 +58,10 @@
         this.$emit('closeReadModal');
       }
     },
+    created()
+    {
+
+    }
   }
 </script>
 

@@ -7,13 +7,13 @@
       <el-input
         size="large"
         placeholder="请输入标题"
-        v-model="title">
+        v-model="article.title">
       </el-input>
     </div>
     <div class="add-tags">
       <el-tag
         :key="tag"
-        v-for="tag in dynamicTags"
+        v-for="tag in article.tags"
         :closable="true"
         :close-transition="false"
         @close="handleClose(tag)"
@@ -32,10 +32,11 @@
       </el-input>
       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
     </div>
-    <mavon-editor v-model="content" :save="saveContent" class="editor" v-on:change="isChangeContent"></mavon-editor>
+    <mavon-editor v-model="article.content" :save="saveContent" class="editor"
+                  v-on:change="isChangeContent"></mavon-editor>
     <div class="wm-handel">
       <el-button :disabled="saveDisable" v-on:click="saveContent" type="primary">保存</el-button>
-      <el-button>关闭</el-button>
+      <el-button v-on:click="closeModal">关闭</el-button>
     </div>
   </div>
 </template>
@@ -45,29 +46,62 @@
   export default {
     name: 'WriteModal',
     components: {mavonEditor},
-    props: ['isShow'],
+    props: ['isShow', 'eidtArticle'],
     data() {
       return {
         wmTitle: '写文章',
-        title: '',
-        content: '',
-        saveDisable: true,
-        dynamicTags: ['标签一', '标签二', '标签三'],
+        article: {
+          _id: '',
+          title: '',
+          content: '',
+          tags: [],
+        },
         inputVisible: false,
-        inputValue: ''
+        inputValue: '',
+        saveDisable: true,
       }
     },
     watch: {
       title: function (val, oldVal) {
         this.isChangeContent()
       },
-      dynamicTags: function (val, oldVal) {
+      tags: function (val, oldVal) {
         this.isChangeContent()
       },
+      isShow: function (val) {
+        if (val) {
+          if (this.eidtArticle != '') {
+            this.article = this.eidtArticle;
+          }
+
+        } else {//关闭时清空输入的内容
+          this.article = {
+            _id: '',
+            title: '',
+            content: '',
+            tags: [],
+          };
+        }
+      }
     },
     methods: {
       closeModal(){
-        this.$emit('closeWriteModal');
+        console.log(this.article)
+        if (this.article.title != ""
+          || this.article.content != ""
+          || this.article.tags.length != 0) {
+          this.$confirm('当前输入的信息还没保存,确定退出?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$emit('closeWriteModal');
+          }).catch(() => {
+            return
+          });
+        } else {
+          this.$emit('closeWriteModal');
+        }
       },
       isChangeContent(){
         if (this.saveDisable) {
@@ -75,12 +109,24 @@
         }
       },
       saveContent(){
-
+        this.$http.post("/article/save", this.article)
+          .then((response) => {
+            console.log(response);
+            if (response.data.isSuccess) {
+              this.$message.success('保存成功');
+              this.$emit('getArticlesList');
+              this.$emit('closeWriteModal');
+            } else {
+              this.$message.error('保存失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('保存失败');
+          });
       },
       handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+        this.article.tags.splice(this.article.tags.indexOf(tag), 1);
       },
-
       showInput() {
         this.inputVisible = true;
         this.$nextTick(_ => {
@@ -91,7 +137,7 @@
       handleInputConfirm() {
         let inputValue = this.inputValue;
         if (inputValue) {
-          this.dynamicTags.push(inputValue);
+          this.article.tags.push(inputValue);
         }
         this.inputVisible = false;
         this.inputValue = '';

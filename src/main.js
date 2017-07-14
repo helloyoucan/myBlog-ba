@@ -23,7 +23,6 @@ const store = new Vuex.Store({
       state.fullLoading = newBool;
     },
     setLocalLoading(state, newBool){
-      console.log(newBool);
       state.localLoading = newBool;
     },
   }

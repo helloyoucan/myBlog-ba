@@ -4,6 +4,7 @@
       <el-input
         placeholder="输入文章名"
         icon="search"
+        v-bind:class="{ showInput: search!='' }"
         v-model="search"
         :on-icon-click="searchHandle">
       </el-input>
@@ -13,16 +14,16 @@
       <li v-for="a in articleList">
         <div class="article-item">
           <div class="at-title">{{a.title}}</div>
-          <div class="at-read">阅读量：{{a.reading}}</div>
-          <div class="at-time">更新时间：{{a.update}}</div>
+          <div class="at-read">阅读量：{{a.read}}</div>
+          <div class="at-time">更新时间：{{a.meta.updateAt.replace('T', ' ').slice(0, -5)}}</div>
           <div class="at-tags">
-            <el-tag type="primary" v-for="t in a.tags">{{t.name}}</el-tag>
+            <el-tag type="primary" v-for="t in a.tags">{{t}}</el-tag>
           </div>
-          <div class="at-preview">{{a.preview}}</div>
+          <div class="at-preview">{{a.content.substring(0, 300)}}</div>
           <div class="at-handel">
-            <el-button v-on:click="readArticle" :plain="true" type="success" icon="document"></el-button>
-            <el-button :plain="true" type="primary" icon="edit"></el-button>
-            <el-button :plain="true" type="danger" icon="delete"></el-button>
+            <el-button v-on:click="readArticle(a._id)" :plain="true" type="success" icon="document"></el-button>
+            <el-button v-on:click="editArticle(a)" :plain="true" type="primary" icon="edit"></el-button>
+            <el-button v-on:click="delArticle(a)" :plain="true" type="danger" icon="delete"></el-button>
           </div>
         </div>
       </li>
@@ -31,15 +32,21 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :current-page="list.currentPage"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="list.currentNum"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total="list.total">
       </el-pagination>
     </div>
-    <v-write-modal v-bind:isShow="isShowWriteModal" v-on:closeWriteModal="closeWriteModal"></v-write-modal>
-    <v-read-modal v-bind:isShow="isShowReadModal" v-on:closeReadModal="closeReadModal"></v-read-modal>
+    <v-write-modal v-bind:isShow="isShowWriteModal"
+                   v-bind:eidtArticle="editArticleData"
+                   v-on:getArticlesList="getData"
+                   v-on:closeWriteModal="closeWriteModal"></v-write-modal>
+    <v-read-modal
+      v-bind:isShow="isShowReadModal"
+      v-bind:readArticle="readArticleData"
+      v-on:closeReadModal="closeReadModal"></v-read-modal>
   </div>
 </template>
 <script>
@@ -56,82 +63,135 @@
         search: '',
         isShowWriteModal: false,
         isShowReadModal: false,
-        currentPage: 4,
+        list: {
+          keyword: '',//搜索的关键字
+          currentPage: 1,//当前页
+          currentNum: 10,//每页数量
+          total: 100,//每页数量
+        },
+        editArticleData: '',
+        readArticleData: '',
         articleList: [
           {
-            title: '文章标题文章标题文章标题文章标题',
-            reading: '36',
-            update: '更新时间',
+            title: '',
+            read: '',
+            update: '',
+            meta: {
+              updateAt: '',
+            },
             tags: [{
-              name: 'html',
-            }, {
-              name: 'css'
+              name: '',
             }],
-            preview: '文章预览内容'
-          },
-          {
-            title: '文章标题文章标题文章标题文章标题',
-            reading: '36',
-            update: '更新时间',
-            tags: [{
-              name: 'html',
-            }, {
-              name: 'css'
-            }],
-            preview: '文章预览内容'
-          },
-          {
-            title: '文章标题文章标题文章标题文章标题',
-            reading: '36',
-            update: '更新时间',
-            tags: [{
-              name: 'html',
-            }, {
-              name: 'css'
-            }],
-            preview: '文章预览内容'
-          },
-          {
-            title: '文章标题文章标题文章标题文章标题',
-            reading: '36',
-            update: '更新时间',
-            tags: [{
-              name: 'html',
-            }, {
-              name: 'css'
-            }],
-            preview: '文章预览内容'
-          },
-        ],
+            content: ''
+          }],
       }
     },
     methods: {
       searchHandle(){
-
+        this.list.keyword = this.search;
+        this.getData();
       },
       addArticle(){
+        this.editArticleData = '';
         this.isShowWriteModal = true;
       },
-      readArticle(){
+      readArticle(id){
         this.isShowReadModal = true;
+        this.openLoading();
+        this.$http.get("/article/getById/" + id)
+          .then((response) => {
+            this.closeLoading();
+            console.log(response);
+            if (response.data.isSuccess) {
+              this.readArticleData = response.data.results;
+            } else {
+              this.$message.error('获取文章失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('获取文章失败');
+          });
       },
-      closeWriteModal(){
+      editArticle(a){
+        this.editArticleData = a;
+        this.isShowWriteModal = true;
+      },
+      delArticle(a){
+        this.$confirm('是否要删除文章"' + a.title + '" ?', '删除提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'error'
+          }
+        ).then(() => {
+          this.$http.post("/article/del", {id: a._id})
+            .then((response) => {
+              console.log(response);
+              if (response.data.isSuccess) {
+                this.$message.success('删除文章成功');
+                this.getData();
+              } else {
+                this.$message.error('删除文章失败');
+              }
+            })
+            .catch((error) => {
+              this.$message.error('获取数据失败');
+            });
+        }).catch(() => {
+          return
+        });
+      },
+      closeWriteModal()
+      {
         this.isShowWriteModal = false;
-      },
-      closeReadModal(){
+      }
+      ,
+      closeReadModal()
+      {
         this.isShowReadModal = false;
+      }
+      ,
+      handleSizeChange(val)
+      {
+        this.list.currentNum = val;
+        this.getData()
+      }
+      ,
+      handleCurrentChange(val)
+      {
+        this.list.currentPage = val;
+        this.getData();
+      }
+      ,
+      getData()
+      {
+        this.openLoading();
+        this.$http.post("/article/list", this.list)
+          .then((response) => {
+            if (response.data.isSuccess) {
+              this.articleList = response.data.articlesList;
+              this.list = response.data.list;
+              this.closeLoading();
+            } else {
+              this.$message.error('获取数据失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('获取数据失败');
+          });
+      }
+      ,
+      closeLoading()
+      {
+        this.$store.commit('setLocalLoading', false);
       },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+      openLoading()
+      {
+        this.$store.commit('setLocalLoading', true);
       }
     },
-    created(){
-      setTimeout(() => {
-        this.$store.commit('setLocalLoading', false);
-      }, 0);
+    created()
+    {
+      this.getData();
     }
   }
 </script>
@@ -169,6 +229,11 @@
           input {
             width: 300px;
           }
+        }
+      }
+      .showInput {
+        input {
+          width: 300px;
         }
       }
       .el-button {
