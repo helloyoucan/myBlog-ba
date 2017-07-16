@@ -101,7 +101,6 @@
         this.$http.get("/article/getById/" + id)
           .then((response) => {
             this.closeLoading();
-            console.log(response);
             if (response.data.isSuccess) {
               this.readArticleData = response.data.results;
             } else {
@@ -123,9 +122,8 @@
             type: 'error'
           }
         ).then(() => {
-          this.$http.delete("/article/del/" + a._id)
+          this.$http.post("/article/softDel", {ids: [a._id], isDel: false})
             .then((response) => {
-              console.log(response);
               if (response.data.isSuccess) {
                 this.$message.success('删除文章成功');
                 this.getData();
@@ -134,7 +132,7 @@
               }
             })
             .catch((error) => {
-              this.$message.error('获取数据失败');
+              this.$message.error('删除文章失败');
             });
         }).catch(() => {
           return

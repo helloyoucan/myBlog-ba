@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3d8b3142-adb6-41cf-bd79-112693f25d8f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Article/ArticleDelete.vue" afterPath="$PROJECT_DIR$/src/components/Article/ArticleDelete.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Article/ArticleList.vue" afterPath="$PROJECT_DIR$/src/components/Article/ArticleList.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Article/ReadModal.vue" afterPath="$PROJECT_DIR$/src/components/Article/ReadModal.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,11 +23,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ArticleList.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ArticleDelete.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleDelete.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-48">
+              <caret line="115" column="34" lean-forward="true" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
+              <folding>
+                <element signature="n#style#0;n#el-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#2586#2633#0" expanded="false" />
+                <element signature="e#2668#2759#0" expanded="false" />
+                <element signature="e#2789#2858#0" expanded="false" />
+                <element signature="e#2891#2961#0" expanded="false" />
+                <element signature="e#2984#3511#0" expanded="false" />
+                <element signature="e#4303#5022#0" expanded="false" />
+                <element signature="e#5045#5400#0" expanded="false" />
+                <element signature="e#5429#5533#0" expanded="false" />
+                <element signature="e#5558#5657#0" expanded="false" />
+                <element signature="e#5674#6216#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReadModal.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Article/ReadModal.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1405">
+              <caret line="17" column="68" lean-forward="false" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArticleList.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="125" column="42" lean-forward="false" selection-start-line="125" selection-start-column="41" selection-end-line="125" selection-end-column="42" />
+            <state relative-caret-position="426">
+              <caret line="121" column="24" lean-forward="false" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -44,13 +78,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$</find>
-      <find>reading</find>
-      <find>isLoading</find>
-      <find>setLocalLoading</find>
-      <find>proxyTable</find>
-      <find>save</find>
-      <find>github</find>
       <find>iconUrl</find>
       <find>beforeUploadIcon</find>
       <find>Vue</find>
@@ -74,6 +101,13 @@
       <find>article</find>
       <find>post</find>
       <find>editArticle</find>
+      <find>multipleSelection</find>
+      <find>handleSelectionChange</find>
+      <find>readArticle</find>
+      <find>readArticleData</find>
+      <find>isShowReadModal</find>
+      <find>components</find>
+      <find>delArticle</find>
     </findStrings>
     <replaceStrings>
       <replace>closeWriteModal</replace>
@@ -102,7 +136,6 @@
         <option value="$PROJECT_DIR$/src/components/Home/Home.vue" />
         <option value="$PROJECT_DIR$/src/components/Bookmarks/BookmarksList.vue" />
         <option value="$PROJECT_DIR$/src/components/Bookmarks/BookmarksDelect.vue" />
-        <option value="$PROJECT_DIR$/src/components/Article/ArticleDelete.vue" />
         <option value="$PROJECT_DIR$/static/url/PersonalInfo.js" />
         <option value="$PROJECT_DIR$/src/url/PersonalInfo.js" />
         <option value="$PROJECT_DIR$/config/index.js" />
@@ -113,6 +146,7 @@
         <option value="$PROJECT_DIR$/src/components/Article/WriteModal.vue" />
         <option value="$PROJECT_DIR$/src/components/Article/ReadModal.vue" />
         <option value="$PROJECT_DIR$/src/components/Article/ArticleList.vue" />
+        <option value="$PROJECT_DIR$/src/components/Article/ArticleDelete.vue" />
       </list>
     </option>
   </component>
@@ -464,7 +498,7 @@
       <workItem from="1498026018147" duration="12993000" />
       <workItem from="1498989802281" duration="13000" />
       <workItem from="1499004143727" duration="947000" />
-      <workItem from="1499668405001" duration="44586000" />
+      <workItem from="1499668405001" duration="58079000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1497490492387</created>
@@ -634,11 +668,18 @@
       <option name="project" value="LOCAL" />
       <updated>1500023366374</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="完成 文章软删除">
+      <created>1500025489880</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1500025489880</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145264000" />
+    <option name="totallyTimeSpent" value="158757000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -656,11 +697,12 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17970401" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32924107" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14285715" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14285715" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -669,7 +711,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -701,11 +742,12 @@
     <MESSAGE value="完成个人信息管理部分" />
     <MESSAGE value="添加url管理部分，方便修改url" />
     <MESSAGE value="完成 文章管理" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成 文章管理" />
+    <MESSAGE value="完成 文章软删除" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成 文章软删除" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -870,13 +912,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleDelete.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="110" column="11" lean-forward="false" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Home/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -993,17 +1028,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Article/ReadModal.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="12" column="12" lean-forward="true" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        <state relative-caret-position="-1405">
+          <caret line="17" column="68" lean-forward="false" selection-start-line="17" selection-start-column="68" selection-end-line="17" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="125" column="42" lean-forward="false" selection-start-line="125" selection-start-column="41" selection-end-line="125" selection-end-column="42" />
+        <state relative-caret-position="426">
+          <caret line="121" column="24" lean-forward="false" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleDelete.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-48">
+          <caret line="115" column="34" lean-forward="true" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#2586#2633#0" expanded="false" />
+            <element signature="e#2668#2759#0" expanded="false" />
+            <element signature="e#2789#2858#0" expanded="false" />
+            <element signature="e#2891#2961#0" expanded="false" />
+            <element signature="e#2984#3511#0" expanded="false" />
+            <element signature="e#4303#5022#0" expanded="false" />
+            <element signature="e#5045#5400#0" expanded="false" />
+            <element signature="e#5429#5533#0" expanded="false" />
+            <element signature="e#5558#5657#0" expanded="false" />
+            <element signature="e#5674#6216#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

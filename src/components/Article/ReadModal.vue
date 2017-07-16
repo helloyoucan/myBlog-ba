@@ -15,25 +15,14 @@
         {{readArticle && readArticle.content}}
       </div>
       <div class="a-comment">
-        <h3>2条留言</h3>
+        <h3>{{readArticle.comments ? readArticle.comments.length : 0}}条留言</h3>
         <ul>
           <li>
-            <div class="ac-item">
+            <div class="ac-item" v-for="(c,index) in readArticle.comments">
               <div class="aci-msg">
-                1楼&nbsp;2017.05.21&nbsp;12:25
+                {{index + 1}}楼&nbsp;{{c.time}}
               </div>
-              <div class="aci-content">留言内容1</div>
-              <div class="aci-handel">
-                <el-button type="text">删除</el-button>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="ac-item">
-              <div class="aci-msg">
-                2楼&nbsp;2017.05.21&nbsp;12:25
-              </div>
-              <div class="aci-content">留言内容2</div>
+              <div class="aci-content">{{c.content}}</div>
               <div class="aci-handel">
                 <el-button type="text">删除</el-button>
               </div>
@@ -49,7 +38,6 @@
   export default {
     name: '',
     props: ['isShow', 'readArticle'],
-    components: {},
     data() {
       return {}
     },

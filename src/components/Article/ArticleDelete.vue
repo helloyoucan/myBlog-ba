@@ -2,12 +2,12 @@
   <div>
     <div class="recycle-bin">
       <div class="rb-handel">
-        <el-button type="primary">还原</el-button>
-        <el-button type="danger">删除</el-button>
+        <el-button v-on:click="batchRestoreArticle" type="primary">还原</el-button>
+        <el-button v-on:click="batchDelArticle" type="danger">删除</el-button>
       </div>
       <el-table
         ref="multipleTable"
-        :data="tableData3"
+        :data="articleList"
         border
         tooltip-effect="dark"
         style="width: 100%"
@@ -17,23 +17,28 @@
           width="55">
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="title"
           label="文章名">
         </el-table-column>
         <el-table-column
-          prop="updateTime"
-          label="更新日期">
+          prop="meta.createAt"
+          label="创建日期">
         </el-table-column>
         <el-table-column
-          prop="delTime"
+          prop="meta.deleteAt"
           label="删除日期">
         </el-table-column>
         <el-table-column
+          scope="scope"
           label="操作">
           <template scope="scope">
-            <el-button v-on:click="readArticle" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small">还原</el-button>
-            <el-button type="text" size="small">删除</el-button>
+            <el-button v-on:click="readArticle(articleList[scope.$index]._id)" type="text" size="small">查看</el-button>
+            <el-button v-on:click="restoreArticle([articleList[scope.$index]._id],[articleList[scope.$index].title])"
+                       type="text" size="small">还原
+            </el-button>
+            <el-button v-on:click="delArticle([articleList[scope.$index]._id],[articleList[scope.$index].title])"
+                       type="text" size="small">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -41,14 +46,17 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :current-page="list.currentPage"
+          :page-sizes="[10, 20, 50, 100]"
+          :page-size="list.currentNum"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :total="list.total">
         </el-pagination>
       </div>
-      <v-read-modal v-bind:isShow="isShowReadModal" v-on:closeReadModal="closeReadModal"></v-read-modal>
+      <v-read-modal
+        v-bind:isShow="isShowReadModal"
+        v-bind:readArticle="readArticleData"
+        v-on:closeReadModal="closeReadModal"></v-read-modal>
     </div>
   </div>
 </template>
@@ -62,30 +70,14 @@
     data() {
       return {
         isShowReadModal: false,
-        tableData3: [{
-          name: '文章名1',
-          updateTime: '2016/04/11',
-          delTime: '2017/05/12'
-        }, {
-          name: '文章名1',
-          updateTime: '2016/04/11',
-          delTime: '2017/05/12'
-        }, {
-          name: '文章名1',
-          updateTime: '2016/04/11',
-          delTime: '2017/05/12'
-        }, {
-          name: '文章名1',
-          updateTime: '2016/04/11',
-          delTime: '2017/05/12'
-        }, {
-          name: '文章名1',
-          updateTime: '2016/04/11',
-          delTime: '2017/05/12'
-        }],
-        multipleSelection: [],
-        currentPage: 4,
-
+        articleList: [],
+        readArticleData: '',
+        list: {
+          keyword: '',//搜索的关键字
+          currentPage: 1,//当前页
+          currentNum: 10,//每页数量
+          total: 100,//每页数量
+        },
       }
     }
     ,
@@ -95,20 +87,125 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
-      }, handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        console.log(this.multipleSelection)
+      },
+      handleSizeChange(val) {
+        this.list.currentNum = val;
+        this.getData();
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+        this.list.currentPage = val;
+        this.getData();
       },
-      readArticle(){
-        this.isShowReadModal = true;
+      readArticle(id){
+        this.$store.commit('setLocalLoading', true);
+        this.$http.get("/article/getById/" + id)
+          .then((response) => {
+            this.$store.commit('setLocalLoading', false);
+            if (response.data.isSuccess) {
+              this.readArticleData = response.data.results;
+              this.isShowReadModal = true;
+            } else {
+              this.$message.error('获取文章失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('获取文章失败');
+          });
+      },
+      restoreArticle(ids, titles){
+        this.$confirm('是否要还原文章"' + titles.join(',') + '" ?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'info'
+          }
+        ).then(() => {
+          this.$http.post("/article/softDel", {
+            ids: ids,
+            isDel: true
+          })
+            .then((response) => {
+              if (response.data.isSuccess) {
+                this.$message.success('还原文章成功');
+                this.getData();
+              } else {
+                this.$message.error('还原文章失败');
+              }
+            })
+            .catch((error) => {
+              this.$message.error('还原文章失败');
+            });
+        }).catch(() => {
+          return
+        });
+      },
+      delArticle(ids, titles){
+        this.$confirm('是否要永久删除文章"' + titles.join(',') + '" ?', '删除提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
+          this.$http.post("/article/recycle/del", {
+            ids: ids,
+          })
+            .then((response) => {
+              if (response.data.isSuccess) {
+                this.$message.success('永久删除文章成功');
+                this.getData();
+              } else {
+                this.$message.error('永久删除文章失败');
+              }
+            })
+            .catch((error) => {
+              this.$message.error('永久删除文章失败');
+            });
+        }).catch(() => {
+          return
+        });
+      },
+      batch(callback){
+        if (this.multipleSelection.length) {
+          var ids = [], titles = [];
+          this.multipleSelection.forEach(function (value, index, array) {
+            titles.push(value.title);
+            ids.push(value._id);
+            callback(ids, titles);
+          });
+        } else {
+          this.$message.warning('请先选中数据');
+        }
+      },
+      batchRestoreArticle(){
+        this.batch((ids, titles) => {
+          this.restoreArticle(ids, titles);
+        });
+
+      },
+      batchDelArticle(){
+        this.batch((ids, titles) => {
+          this.delArticle(ids, titles);
+        });
+      },
+      getData(){
+        this.$store.commit('setLocalLoading', true);
+        this.$http.post("/article/recycleBin", this.list)
+          .then((response) => {
+            if (response.data.isSuccess) {
+              this.articleList = response.data.articlesList;
+              this.list = response.data.list;
+              this.$store.commit('setLocalLoading', false);
+            } else {
+              this.$message.error('获取数据失败');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('获取数据失败');
+          });
       }
     },
     created(){
-      setTimeout(() => {
-        this.$store.commit('setLocalLoading', false);
-      },0);
+      this.getData();
     }
   }
 </script>
