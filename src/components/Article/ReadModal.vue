@@ -12,7 +12,7 @@
         <span class="am-comment">评论&nbsp;:&nbsp;{{readArticle.comments ? readArticle.comments.length : 0}}</span>
       </div>
       <div class="a-content">
-        {{readArticle && readArticle.content}}
+        {{readArticle.content}}
       </div>
       <div class="a-comment">
         <h3>{{readArticle.comments ? readArticle.comments.length : 0}}条留言</h3>

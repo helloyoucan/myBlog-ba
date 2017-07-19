@@ -19,7 +19,7 @@
           <div class="at-tags">
             <el-tag type="primary" v-for="t in a.tags">{{t}}</el-tag>
           </div>
-          <div class="at-preview">{{a.content.substring(0, 300)}}</div>
+          <div class="at-preview">{{a.preview}}</div>
           <div class="at-handel">
             <el-button v-on:click="readArticle(a._id)" :plain="true" type="success" icon="document"></el-button>
             <el-button v-on:click="editArticle(a)" :plain="true" type="primary" icon="edit"></el-button>
@@ -102,6 +102,7 @@
           .then((response) => {
             this.closeLoading();
             if (response.data.isSuccess) {
+              console.log(response.data)
               this.readArticleData = response.data.results;
             } else {
               this.$message.error('获取文章失败');
@@ -112,8 +113,21 @@
           });
       },
       editArticle(a){
-        this.editArticleData = a;
-        this.isShowWriteModal = true;
+        this.$http.post("/article/getContent", {fileName: a.fileName})
+          .then((response) => {
+            this.closeLoading();
+            if (response.data.isSuccess) {
+              a.content = response.data.content;
+              this.editArticleData = a;
+              this.isShowWriteModal = true;
+            } else {
+              this.$message.error('获取文章内容');
+            }
+          })
+          .catch((error) => {
+            this.$message.error('获取文章内容');
+          });
+
       },
       delArticle(a){
         this.$confirm('是否要删除文章"' + a.title + '" ?', '删除提示', {
