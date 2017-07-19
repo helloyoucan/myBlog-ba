@@ -9,7 +9,7 @@
       <div class="a-msg">
         <span class="am-time">更新时间&nbsp;:&nbsp;{{readArticle && readArticle.meta.updateAt.replace('T', ' ').slice(0, -5)}}</span>
         <span class="am-read">阅读&nbsp;:&nbsp;{{readArticle && readArticle.read}}</span>
-        <span class="am-comment">评论&nbsp;:&nbsp;2</span>
+        <span class="am-comment">评论&nbsp;:&nbsp;{{readArticle.comments ? readArticle.comments.length : 0}}</span>
       </div>
       <div class="a-content">
         {{readArticle && readArticle.content}}
