@@ -46,6 +46,7 @@
     <v-read-modal
       v-bind:isShow="isShowReadModal"
       v-bind:readArticle="readArticleData"
+      v-on:getData="readArticle"
       v-on:closeReadModal="closeReadModal"></v-read-modal>
   </div>
 </template>

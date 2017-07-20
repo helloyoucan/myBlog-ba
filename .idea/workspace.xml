@@ -25,8 +25,8 @@
       <file leaf-file-name="ArticleDelete.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleDelete.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="700">
-              <caret line="212" column="16" lean-forward="false" selection-start-line="212" selection-start-column="16" selection-end-line="212" selection-end-column="16" />
+            <state relative-caret-position="766">
+              <caret line="164" column="11" lean-forward="true" selection-start-line="142" selection-start-column="8" selection-end-line="164" selection-end-column="11" />
               <folding>
                 <element signature="e#2586#2633#0" expanded="false" />
                 <element signature="e#2668#2759#0" expanded="false" />
@@ -34,7 +34,6 @@
                 <element signature="e#2891#2961#0" expanded="false" />
                 <element signature="e#2984#3511#0" expanded="false" />
                 <element signature="e#3546#4272#0" expanded="false" />
-                <element signature="e#4303#5022#0" expanded="false" />
                 <element signature="e#5045#5400#0" expanded="false" />
                 <element signature="e#5429#5533#0" expanded="false" />
                 <element signature="e#5558#5657#0" expanded="false" />
@@ -47,8 +46,8 @@
       <file leaf-file-name="ArticleList.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="115" column="58" lean-forward="false" selection-start-line="115" selection-start-column="58" selection-end-line="115" selection-end-column="58" />
+            <state relative-caret-position="245">
+              <caret line="47" column="42" lean-forward="false" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -57,8 +56,8 @@
       <file leaf-file-name="ReadModal.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Article/ReadModal.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="29" />
+            <state relative-caret-position="330">
+              <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -112,11 +111,11 @@
       <find>editArticle</find>
       <find>multipleSelection</find>
       <find>handleSelectionChange</find>
-      <find>readArticle</find>
       <find>readArticleData</find>
       <find>isShowReadModal</find>
       <find>components</find>
       <find>delArticle</find>
+      <find>readArticle</find>
     </findStrings>
     <replaceStrings>
       <replace>closeWriteModal</replace>
@@ -154,8 +153,8 @@
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/components/Article/WriteModal.vue" />
         <option value="$PROJECT_DIR$/src/components/Article/ArticleDelete.vue" />
-        <option value="$PROJECT_DIR$/src/components/Article/ReadModal.vue" />
         <option value="$PROJECT_DIR$/src/components/Article/ArticleList.vue" />
+        <option value="$PROJECT_DIR$/src/components/Article/ReadModal.vue" />
       </list>
     </option>
   </component>
@@ -511,7 +510,7 @@
       <workItem from="1498989802281" duration="13000" />
       <workItem from="1499004143727" duration="947000" />
       <workItem from="1499668405001" duration="59329000" />
-      <workItem from="1500455295358" duration="6303000" />
+      <workItem from="1500455295358" duration="8857000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1497490492387</created>
@@ -702,11 +701,18 @@
       <option name="project" value="LOCAL" />
       <updated>1500466540200</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="优化显示文章内容部分">
+      <created>1500476952033</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1500476952033</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166310000" />
+    <option name="totallyTimeSpent" value="168864000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -772,7 +778,8 @@
     <MESSAGE value="完成 文章软删除" />
     <MESSAGE value="完成文章回收站" />
     <MESSAGE value="显示评论数量" />
-    <option name="LAST_COMMIT_MESSAGE" value="显示评论数量" />
+    <MESSAGE value="优化显示文章内容部分" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化显示文章内容部分" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1066,6 +1073,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="429">
           <caret line="46" column="27" lean-forward="false" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,18 +1093,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="115" column="58" lean-forward="false" selection-start-line="115" selection-start-column="58" selection-end-line="115" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleDelete.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="212" column="16" lean-forward="false" selection-start-line="212" selection-start-column="16" selection-end-line="212" selection-end-column="16" />
+        <state relative-caret-position="766">
+          <caret line="164" column="11" lean-forward="true" selection-start-line="142" selection-start-column="8" selection-end-line="164" selection-end-column="11" />
           <folding>
             <element signature="e#2586#2633#0" expanded="false" />
             <element signature="e#2668#2759#0" expanded="false" />
@@ -1104,7 +1104,6 @@
             <element signature="e#2891#2961#0" expanded="false" />
             <element signature="e#2984#3511#0" expanded="false" />
             <element signature="e#3546#4272#0" expanded="false" />
-            <element signature="e#4303#5022#0" expanded="false" />
             <element signature="e#5045#5400#0" expanded="false" />
             <element signature="e#5429#5533#0" expanded="false" />
             <element signature="e#5558#5657#0" expanded="false" />
@@ -1113,10 +1112,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Article/ArticleList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="47" column="42" lean-forward="false" selection-start-line="47" selection-start-column="42" selection-end-line="47" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Article/ReadModal.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="14" column="29" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="29" />
+        <state relative-caret-position="330">
+          <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
           <folding />
         </state>
       </provider>

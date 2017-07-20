@@ -24,7 +24,7 @@
               </div>
               <div class="aci-content">{{c.content}}</div>
               <div class="aci-handel">
-                <el-button type="text">删除</el-button>
+                <el-button v-on:click="delComment(c)" type="text">删除</el-button>
               </div>
             </div>
           </li>
@@ -44,7 +44,32 @@
     methods: {
       closeModal(){
         this.$emit('closeReadModal');
-      }
+      },
+      delComment(c){
+        this.$confirm('确定删除留言"' + c.content + '" ?', '删除提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }
+        ).then(() => {
+          this.$http.post("/delComment", {
+            id: c._id,
+          })
+            .then((response) => {
+              if (response.data.isSuccess) {
+                this.$message.success('删除留言成功');
+                this.$emit('getData', this.readArticle._id);
+              } else {
+                this.$message.error('删除留言删除留言失败');
+              }
+            })
+            .catch((error) => {
+              this.$message.error('删除留言失败');
+            });
+        }).catch(() => {
+          return
+        });
+      },
     },
     created()
     {
@@ -66,6 +91,7 @@
     /*display: none;*/
     transform: scale(0, 0);
     transition: transform .5s;
+    overflow: auto;
     &.show {
       /*display: block;*/
       transform: scale(1, 1);
