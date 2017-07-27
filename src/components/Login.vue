@@ -12,8 +12,8 @@
       </el-popover>
       <div class="login-form" v-popover:popover>
         <el-form :model="formData" :rules="loginRules" ref="formData" label-width="0px">
-          <el-form-item prop="useName">
-            <el-input type="text" placeholder="用户名" v-model="formData.useName" auto-complete="off"></el-input>
+          <el-form-item prop="username">
+            <el-input type="text" placeholder="用户名" v-model="formData.username" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input type="password" placeholder="密码" v-model="formData.password" auto-complete="off"></el-input>
@@ -73,7 +73,7 @@
         login_tip: '',
         formData: {
           password: '',
-          useName: '',
+          username: '',
           captcha: '',
           captchaImgUrl: '../../static/img/testCaptcha.png', //验证码
         },
@@ -82,7 +82,7 @@
             validator: validatePass,
             trigger: 'blur'
           }],
-          useName: [{
+          username: [{
             validator: validateUseName,
             trigger: 'blur'
           }],
@@ -107,9 +107,25 @@
             //this.visible = true;
             //this.login_tip = "账号或密码错误";
             //this.login_tip = "验证码错误";
-            this.$router.push('/Index');
-            this.$store.commit('setFullLoading', true);
-            this.$store.commit('setLocalLoading', true);
+            this.$http.post("/signin", {
+              username: this.formData.username,
+              password: this.formData.password
+            }).then((response) => {
+              if (response.data.isSuccess) {
+                this.$router.push('/Index');
+                this.$store.commit('setFullLoading', true);
+                this.$store.commit('setLocalLoading', true);
+                this.$message.success(response.data.message);
+              } else {
+                this.$message.error(response.data.message);
+                this.isBtnLoading = false;
+              }
+            })
+              .catch((error) => {
+                this.$message.error(response.data.message);
+                this.isBtnLoading = false;
+              });
+
           } else {
             console.log('error submit!!');
             return false;

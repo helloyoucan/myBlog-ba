@@ -16,6 +16,11 @@ const store = new Vuex.Store({
   state: {
     fullLoading: false,
     localLoading: false,
+    user: {
+      name: '',
+      username: '',
+      password: ''
+    }
   },
   mutations: {
     setFullLoading(state, newBool)
@@ -25,6 +30,14 @@ const store = new Vuex.Store({
     setLocalLoading(state, newBool){
       state.localLoading = newBool;
     },
+    setUser(state, user){
+      for (u in user) {
+        state.user[u] = user[u]
+      }
+    },
+    getUser(state){
+      return state.user;
+    }
   }
 })
 new Vue({

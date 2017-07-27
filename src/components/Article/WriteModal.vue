@@ -117,7 +117,7 @@
               this.$emit('getArticlesList');
               this.$emit('closeWriteModal');
             } else {
-              this.$message.error('保存失败');
+              this.$message.error('保存失败:' + response.data.message);
             }
           })
           .catch((error) => {

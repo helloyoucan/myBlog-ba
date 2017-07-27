@@ -11,8 +11,7 @@
         <span class="am-read">阅读&nbsp;:&nbsp;{{readArticle && readArticle.read}}</span>
         <span class="am-comment">评论&nbsp;:&nbsp;{{readArticle.comments ? readArticle.comments.length : 0}}</span>
       </div>
-      <div class="a-content">
-        {{readArticle.content}}
+      <div class="a-content" v-html="readArticle.content">
       </div>
       <div class="a-comment">
         <h3>{{readArticle.comments ? readArticle.comments.length : 0}}条留言</h3>
@@ -61,6 +60,9 @@
                 this.$emit('getData', this.readArticle._id);
               } else {
                 this.$message.error('删除留言删除留言失败');
+                if (!response.data.isSignin) {
+                  this.$router.push('/Login');
+                }
               }
             })
             .catch((error) => {
@@ -123,6 +125,9 @@
 
     .a-content {
       padding: 10px 0;
+      img {
+        max-width: 100%;
+      }
     }
     .a-comment {
       h3 {

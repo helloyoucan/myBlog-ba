@@ -152,6 +152,9 @@
               this.$message.success('保存成功');
             } else {
               this.$message.error('保存失败');
+              if (!response.data.isSignin) {
+                this.$router.push('/Login');
+              }
             }
           })
           .catch((error) => {

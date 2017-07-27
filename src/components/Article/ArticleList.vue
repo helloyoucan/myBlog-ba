@@ -87,6 +87,11 @@
           }],
       }
     },
+    filters: {
+      removeHtml(val){
+        return val.replace(/<\/?.+?>/g, "").replace(/ /g, "");
+      },
+    },
     methods: {
       searchHandle(){
         this.list.keyword = this.search;
@@ -144,6 +149,9 @@
                 this.getData();
               } else {
                 this.$message.error('删除文章失败');
+                if (!response.data.isSignin) {
+                  this.$router.push('/Login');
+                }
               }
             })
             .catch((error) => {
