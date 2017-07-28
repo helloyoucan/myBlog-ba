@@ -14,7 +14,6 @@
             </el-tooltip>
           </li>
           <li>
-            <img :src="user.icon"/>
             <el-dropdown trigger="click">
 							<span class="el-dropdown-link">
       				 			{{user.name}}
@@ -37,17 +36,18 @@
 </template>
 
 <script>
-  var iconImg = require("../../../static/img/user-icon.jpg");
   export default {
     name: 'Header',
     data() {
       return {
-        user: {
-          name: "Admin",
-          icon: iconImg
-        },
         value: '收起菜单'
       }
+    },
+    computed: {
+      // 仅读取，值只须为函数
+      user(){
+        return this.$store.state.user;
+      },
     },
     methods: {
       hideMenuAction() {
@@ -56,11 +56,16 @@
       logout() {
         this.$http.get("/logout").then((response) => {
           if (response.data.isSuccess) {
+            this.$store.commit('setUser', {
+              name: '',
+              username: '',
+              password: ''
+            });
             this.$router.push('/Login');
           }
         })
           .catch((error) => {
-            this.$message.error(response.data.message);
+            this.$message.error("退出登录失败");
             this.isBtnLoading = false;
           });
 

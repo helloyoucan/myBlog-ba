@@ -83,8 +83,8 @@
         isHideKMenu: false,
         dialogFormVisible: false,
         form: {
-          name: '小灿',
-          username: '123',
+          name: '',
+          username: '',
           password: '',
           checkPass: '',
         },
@@ -147,6 +147,10 @@
     },
     created(){
       this.$store.commit('setFullLoading', false);
+      var user = this.$store.state.user;
+      this.form.name = user.name;
+      this.form.username = user.username;
+      this.form.password = user.password;
     },
   }
 </script>

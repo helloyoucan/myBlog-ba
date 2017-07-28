@@ -113,6 +113,7 @@
             }).then((response) => {
               if (response.data.isSuccess) {
                 this.$router.push('/Index');
+                this.$store.commit('setUser', response.data.user);
                 this.$store.commit('setFullLoading', true);
                 this.$store.commit('setLocalLoading', true);
                 this.$message.success(response.data.message);
@@ -122,7 +123,7 @@
               }
             })
               .catch((error) => {
-                this.$message.error(response.data.message);
+                this.$message.error("登录失败");
                 this.isBtnLoading = false;
               });
 

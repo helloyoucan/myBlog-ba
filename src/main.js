@@ -12,6 +12,7 @@ Vue.use(ElementUI);
 Vue.use(Vuex);
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios;
+
 const store = new Vuex.Store({
   state: {
     fullLoading: false,
@@ -31,15 +32,18 @@ const store = new Vuex.Store({
       state.localLoading = newBool;
     },
     setUser(state, user){
-      for (u in user) {
-        state.user[u] = user[u]
-      }
+      state.user.name = user.name
+      state.user.username = user.username
     },
-    getUser(state){
-      return state.user;
-    }
   }
-})
+});
+router.beforeEach((to, from, next) => {
+  console.log(store.state.user)
+  if (store.state.user.username == "" && to.path != "/Login") {//是否已经登录
+    next('/');
+  }
+  next();
+});
 new Vue({
   el: '#app',
   store,
