@@ -5,12 +5,7 @@
       <div class="title">
         <h1>后台登陆</h1>
       </div>
-      <el-popover ref="popover" offset="-200" trigger="manual" placement="top-end" v-model="visible">
-        <p class="login-tip">
-          {{login_tip}}
-        </p>
-      </el-popover>
-      <div class="login-form" v-popover:popover>
+      <div class="login-form">
         <el-form :model="formData" :rules="loginRules" ref="formData" label-width="0px">
           <el-form-item prop="username">
             <el-input type="text" placeholder="用户名" v-model="formData.username" auto-complete="off"></el-input>
@@ -22,7 +17,8 @@
             <el-input class="captcha-input" type="text" placeholder="验证码" v-model="formData.captcha"
                       auto-complete="off"></el-input>
             <el-tooltip class="item" effect="dark" content="点击更换验证码" placement="top">
-              <img @click="changeCaptchaImg()" class="captcha-img" alt="验证码" :src="formData.captchaImgUrl"/>
+              <div class="captcha-img" alt="验证码" @click="getCaptcha()" v-html="formData.captchaImgUrl"></div>
+              <!--<img @click="changeCaptchaImg()" class="captcha-img" alt="验证码" :src="formData.captchaImgUrl"/>-->
             </el-tooltip>
 
           </el-form-item>
@@ -69,13 +65,11 @@
       return {
         bg,
         isBtnLoading: false,
-        visible: false,
-        login_tip: '',
         formData: {
           password: '',
           username: '',
           captcha: '',
-          captchaImgUrl: '../../static/img/testCaptcha.png', //验证码
+          captchaImgUrl: '', //验证码
         },
         loginRules: {
           password: [{
@@ -104,12 +98,10 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.isBtnLoading = true;
-            //this.visible = true;
-            //this.login_tip = "账号或密码错误";
-            //this.login_tip = "验证码错误";
             this.$http.post("/signin", {
               username: this.formData.username,
-              password: this.formData.password
+              password: this.formData.password,
+              captcha: this.formData.captcha
             }).then((response) => {
               if (response.data.isSuccess) {
                 this.$router.push('/Index');
@@ -118,12 +110,16 @@
                 this.$store.commit('setLocalLoading', true);
                 this.$message.success(response.data.message);
               } else {
+                this.formData.captcha = '';
+                this.getCaptcha();
                 this.$message.error(response.data.message);
                 this.isBtnLoading = false;
               }
             })
               .catch((error) => {
                 this.$message.error("登录失败");
+                this.formData.captcha = '';
+                this.getCaptcha();
                 this.isBtnLoading = false;
               });
 
@@ -133,10 +129,19 @@
           }
         });
       },
-      changeCaptchaImg() { //切换验证码
+      getCaptcha(){
+        this.$http.get("/captcha")
+          .then((response) => {
+            this.formData.captchaImgUrl = response.data;
+          })
+          .then((error) => {
 
-      }
+          })
+      },
     },
+    created(){
+      this.getCaptcha();
+    }
   }
 </script>
 <style>
@@ -153,11 +158,6 @@
     font-weight: 500;
     font-size: 36px;
     line-height: 2em;
-  }
-
-  .login-tip {
-    text-align: center;
-    font-size: 14px;
   }
 
   .login-panle {
