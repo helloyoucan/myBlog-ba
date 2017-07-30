@@ -105,7 +105,9 @@
             }).then((response) => {
               if (response.data.isSuccess) {
                 this.$router.push('/Index');
-                this.$store.commit('setUser', response.data.user);
+                if (sessionStorage) {
+                  sessionStorage.setItem('user', JSON.stringify(response.data.user));
+                }
                 this.$store.commit('setFullLoading', true);
                 this.$store.commit('setLocalLoading', true);
                 this.$message.success(response.data.message);

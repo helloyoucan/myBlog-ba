@@ -147,10 +147,11 @@
     },
     created(){
       this.$store.commit('setFullLoading', false);
-      var user = this.$store.state.user;
+      if (sessionStorage) {
+        var user = JSON.parse(sessionStorage.getItem('user'));
+      }
       this.form.name = user.name;
       this.form.username = user.username;
-      this.form.password = user.password;
     },
   }
 </script>

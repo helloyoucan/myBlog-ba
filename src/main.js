@@ -38,12 +38,15 @@ const store = new Vuex.Store({
   }
 });
 router.beforeEach((to, from, next) => {
-  console.log(store.state.user)
-  if (store.state.user.username == "" && to.path != "/Login") {//是否已经登录
+  if (sessionStorage) {
+    var user = JSON.parse(sessionStorage.getItem('user'));
+  }
+  if (user == null && to.path != "/Login") {//是否已经登录
     next('/');
   }
   next();
-});
+})
+;
 new Vue({
   el: '#app',
   store,

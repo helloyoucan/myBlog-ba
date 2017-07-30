@@ -46,7 +46,10 @@
     computed: {
       // 仅读取，值只须为函数
       user(){
-        return this.$store.state.user;
+        if (sessionStorage) {
+          var user = JSON.parse(sessionStorage.getItem('user'));
+        }
+        return user;
       },
     },
     methods: {
@@ -56,11 +59,9 @@
       logout() {
         this.$http.get("/logout").then((response) => {
           if (response.data.isSuccess) {
-            this.$store.commit('setUser', {
-              name: '',
-              username: '',
-              password: ''
-            });
+            if (sessionStorage) {
+              sessionStorage.removeItem('user');
+            }
             this.$router.push('/Login');
           }
         })

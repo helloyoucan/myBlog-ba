@@ -4,12 +4,12 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <div class="chart">
-            <line-chart :chart-data="datacollection1"></line-chart>
+            <!--<line-chart :chart-data="datacollection1"></line-chart>-->
           </div>
         </el-col>
         <el-col :span="12">
           <div class="chart">
-            <line-chart :chart-data="datacollection2"></line-chart>
+            <!--<line-chart :chart-data="datacollection2"></line-chart>-->
           </div>
         </el-col>
       </el-row>
@@ -17,11 +17,11 @@
   </div>
 </template>
 <script>
-  import LineChart from './LineChart'
+//  import LineChart from './LineChart'
   export default {
     name: '',
     components: {
-      LineChart
+      //LineChart
     },
     data() {
       return {
