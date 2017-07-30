@@ -39,11 +39,14 @@
         :total="list.total">
       </el-pagination>
     </div>
-    <v-write-modal v-bind:isShow="isShowWriteModal"
-                   v-bind:eidtArticle="editArticleData"
-                   v-on:getArticlesList="getData"
-                   v-on:closeWriteModal="closeWriteModal"></v-write-modal>
+    <v-write-modal
+      v-bind:style="{left:modelLeft+'px'}"
+      v-bind:isShow="isShowWriteModal"
+      v-bind:eidtArticle="editArticleData"
+      v-on:getArticlesList="getData"
+      v-on:closeWriteModal="closeWriteModal"></v-write-modal>
     <v-read-modal
+      v-bind:style="{left:modelLeft+'px'}"
       v-bind:isShow="isShowReadModal"
       v-bind:readArticle="readArticleData"
       v-on:getData="readArticle"
@@ -64,6 +67,7 @@
         search: '',
         isShowWriteModal: false,
         isShowReadModal: false,
+        modelLeft: 0,
         list: {
           keyword: '',//搜索的关键字
           currentPage: 1,//当前页
@@ -87,21 +91,18 @@
           }],
       }
     },
-    filters: {
-      removeHtml(val){
-        return val.replace(/<\/?.+?>/g, "").replace(/ /g, "");
-      },
-    },
     methods: {
       searchHandle(){
         this.list.keyword = this.search;
         this.getData();
       },
       addArticle(){
+        this.modelLeft = this.$el.offsetLeft;
         this.editArticleData = '';
         this.isShowWriteModal = true;
       },
       readArticle(id){
+        this.modelLeft = this.$el.offsetLeft;
         this.isShowReadModal = true;
         this.openLoading();
         this.$http.get("/article/getById/" + id)
@@ -125,6 +126,7 @@
             if (response.data.isSuccess) {
               a.content = response.data.content;
               this.editArticleData = a;
+              this.modelLeft = this.$el.offsetLeft;
               this.isShowWriteModal = true;
             } else {
               this.$message.error('获取文章内容');
@@ -161,30 +163,21 @@
           return
         });
       },
-      closeWriteModal()
-      {
+      closeWriteModal(){
         this.isShowWriteModal = false;
-      }
-      ,
-      closeReadModal()
-      {
+      },
+      closeReadModal(){
         this.isShowReadModal = false;
-      }
-      ,
-      handleSizeChange(val)
-      {
+      },
+      handleSizeChange(val){
         this.list.currentNum = val;
         this.getData()
-      }
-      ,
-      handleCurrentChange(val)
-      {
+      },
+      handleCurrentChange(val) {
         this.list.currentPage = val;
         this.getData();
-      }
-      ,
-      getData()
-      {
+      },
+      getData(){
         this.openLoading();
         this.$http.post("/article/list", this.list)
           .then((response) => {
@@ -199,14 +192,11 @@
           .catch((error) => {
             this.$message.error('获取数据失败');
           });
-      }
-      ,
-      closeLoading()
-      {
+      },
+      closeLoading(){
         this.$store.commit('setLocalLoading', false);
       },
-      openLoading()
-      {
+      openLoading(){
         this.$store.commit('setLocalLoading', true);
       }
     },
@@ -220,7 +210,6 @@
 <style rel="stylesheet/scss" lang="scss">
   .article-list {
     position: relative;
-    /*overflow: hidden;*/
     .handel {
       position: fixed;
       right: 25px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="write-modal" v-bind:class="{show :isShow}">
+  <div class="write-modal diyscrollbar" v-bind:class="{show :isShow}">
     <div class="wm-title">{{wmTitle}}
       <span class="el-icon-close" v-on:click="closeModal"></span>
     </div>
@@ -148,11 +148,11 @@
 
 <style rel="stylesheet/scss" lang="scss">
   .write-modal {
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    position: fixed;
+    top: 75px;
+    bottom: 15px;
     left: 0;
-    right: 0;
+    right: 15px;
     border: 5px solid #555;
     background-color: white;
     z-index: 2;
