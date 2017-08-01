@@ -34,13 +34,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="left">Github&nbsp;:</div>
-      <div class="right">
-        <el-input v-model="info.github" placeholder="请输入Github地址"></el-input>
-      </div>
-    </div>
-    <div class="row">
-      <div class="left">其它&nbsp;:</div>
+      <div class="left">社交&nbsp;:</div>
       <div class="right">
         <form id="form-others">
           <div class="form-upload-col" v-for="(o,index) in info.others">
@@ -86,7 +80,6 @@
           iconUrl: '',
           name: '',
           emails: [],
-          github: '',
           others: [],
         },
         btnSaveLoading: false,

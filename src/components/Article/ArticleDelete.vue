@@ -36,8 +36,9 @@
             <el-button v-on:click="restoreArticle([articleList[scope.$index]._id],[articleList[scope.$index].title])"
                        type="text" size="small">还原
             </el-button>
-            <el-button v-on:click="delArticle([articleList[scope.$index]._id],[articleList[scope.$index].title])"
-                       type="text" size="small">删除
+            <el-button
+              v-on:click="delArticle([articleList[scope.$index]._id],[articleList[scope.$index].title],[articleList[scope.$index].fileName])"
+              type="text" size="small">删除
             </el-button>
           </template>
         </el-table-column>
@@ -87,7 +88,6 @@
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
-        console.log(this.multipleSelection)
       },
       handleSizeChange(val) {
         this.list.currentNum = val;
@@ -139,7 +139,7 @@
           return
         });
       },
-      delArticle(ids, titles){
+      delArticle(ids, titles, fileNames){
         this.$confirm('是否要永久删除文章"' + titles.join(',') + '" ?', '删除提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -148,6 +148,7 @@
         ).then(() => {
           this.$http.post("/article/recycle/del", {
             ids: ids,
+            fileNames: fileNames
           })
             .then((response) => {
               if (response.data.isSuccess) {
@@ -166,12 +167,13 @@
       },
       batch(callback){
         if (this.multipleSelection.length) {
-          var ids = [], titles = [];
+          var ids = [], titles = [], fileNames = [];
           this.multipleSelection.forEach(function (value, index, array) {
             titles.push(value.title);
             ids.push(value._id);
-            callback(ids, titles);
+            fileNames.push(value.fileName);
           });
+          callback(ids, titles, fileNames);
         } else {
           this.$message.warning('请先选中数据');
         }
@@ -183,8 +185,8 @@
 
       },
       batchDelArticle(){
-        this.batch((ids, titles) => {
-          this.delArticle(ids, titles);
+        this.batch((ids, titles, fileNames) => {
+          this.delArticle(ids, titles, fileNames);
         });
       },
       getData(){
