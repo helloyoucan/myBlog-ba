@@ -179,6 +179,8 @@
             .catch((error) => {
               this.$message.error('上传图片失败');
             });
+        } else {
+          callback();
         }
 
       },
