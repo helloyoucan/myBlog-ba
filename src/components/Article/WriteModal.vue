@@ -38,7 +38,6 @@
     <div class="wm-handel">
       <el-button :disabled="saveDisable" v-on:click="saveContent" type="primary">保存</el-button>
       <el-button v-on:click="closeModal">关闭</el-button>
-      <button @click="uploadimg">upload</button>
     </div>
   </div>
 </template>
