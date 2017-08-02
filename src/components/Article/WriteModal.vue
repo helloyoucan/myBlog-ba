@@ -32,17 +32,20 @@
       </el-input>
       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
     </div>
-    <mavon-editor v-model="article.content" :save="saveContent" class="editor"
+    <mavon-editor v-on:imgAdd="$imgAdd" v-on:imgDel="$imgDel"
+                  v-model="article.content" :save="saveContent" class="editor"
                   v-on:change="isChangeContent"></mavon-editor>
     <div class="wm-handel">
       <el-button :disabled="saveDisable" v-on:click="saveContent" type="primary">保存</el-button>
       <el-button v-on:click="closeModal">关闭</el-button>
+      <button @click="uploadimg">upload</button>
     </div>
   </div>
 </template>
 <script>
   import {mavonEditor} from 'mavon-editor'
   import 'mavon-editor/dist/css/index.css'
+  import api from '@/url/PersonalInfo.js'
   export default {
     name: 'WriteModal',
     components: {mavonEditor},
@@ -59,6 +62,7 @@
         inputVisible: false,
         inputValue: '',
         saveDisable: true,
+        img_file: {},
       }
     },
     watch: {
@@ -82,11 +86,10 @@
             tags: [],
           };
         }
-      }
+      },
     },
     methods: {
       closeModal(){
-        console.log(this.article)
         if (this.article.title != ""
           || this.article.content != ""
           || this.article.tags.length != 0) {
@@ -109,20 +112,22 @@
         }
       },
       saveContent(){
-        this.$http.post("/article/save", this.article)
-          .then((response) => {
-            console.log(response);
-            if (response.data.isSuccess) {
-              this.$message.success('保存成功');
-              this.$emit('getArticlesList');
-              this.$emit('closeWriteModal');
-            } else {
-              this.$message.error('保存失败:' + response.data.message);
-            }
-          })
-          .catch((error) => {
-            this.$message.error('保存失败');
-          });
+        this.uploadimg(() => {
+          this.$http.post("/article/save", this.article)
+            .then((response) => {
+              if (response.data.isSuccess) {
+                this.$message.success('保存成功');
+                this.$emit('getArticlesList');
+                this.$emit('closeWriteModal');
+              } else {
+                this.$message.error('保存失败:' + response.data.message);
+              }
+            })
+            .catch((error) => {
+              this.$message.error('保存失败');
+            });
+        })
+
       },
       handleClose(tag) {
         this.article.tags.splice(this.article.tags.indexOf(tag), 1);
@@ -141,8 +146,45 @@
         }
         this.inputVisible = false;
         this.inputValue = '';
-      }
+      },
+      $imgAdd(pos, $file){
+        this.img_file[pos] = $file;
+      },
+      $imgDel(pos){
+        delete this.img_file[pos];
+      },
+      uploadimg(callback){
+        var formdata = new FormData();
+        var imgArr = [];
+        for (var _img in this.img_file) {
+          formdata.append('imageFile', this.img_file[_img]);
+          imgArr.push(_img);
+        }
+        if (imgArr.length > 0) {
+          this.$http({
+            url: api.uploadIcon,
+            method: 'post',
+            data: formdata,
+            headers: {'Content-Type': 'multipart/form-data'},
+          }).then((response) => {
+            if (response.data.isSuccess) {
+              imgArr.forEach((value, index, arr) => {
+                this.article.content = this.article.content.replace(value, response.data.paths[index]);
+              });
+              this.img_file = {};
+              callback();
+            } else {
+              this.$message.error('上传图片失败');
+            }
+          })
+            .catch((error) => {
+              this.$message.error('上传图片失败');
+            });
+        }
+
+      },
     },
+
   }
 </script>
 

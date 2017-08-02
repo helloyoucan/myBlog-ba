@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="left">社交&nbsp;:</div>
+      <div class="left">其它&nbsp;:</div>
       <div class="right">
         <form id="form-others">
           <div class="form-upload-col" v-for="(o,index) in info.others">
@@ -89,7 +89,7 @@
     methods: {
       uploadIconSuccess(res, file) {
         if (file.response.isSuccess) {
-          this.info.iconUrl = file.response.path;
+          this.info.iconUrl = file.response.paths[0];
         } else {
           this.$message.error('上传图片失败');
         }
@@ -103,7 +103,7 @@
         this.$http.post(api.uploadIcon, formdata)
           .then((response) => {
             if (response.data.isSuccess) {
-              this.info.others[obj.data.index].iconUrl = response.data.path;
+              this.info.others[obj.data.index].iconUrl = response.data.paths[0];
             } else {
               this.$message.error('上传图片失败');
             }
