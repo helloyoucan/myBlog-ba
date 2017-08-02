@@ -11,7 +11,7 @@
         <span class="am-read">阅读&nbsp;:&nbsp;{{readArticle && readArticle.read}}</span>
         <span class="am-comment">评论&nbsp;:&nbsp;{{readArticle.comments ? readArticle.comments.length : 0}}</span>
       </div>
-      <div class="a-content" v-html="readArticle.content">
+      <div class="a-content markdown-body" v-html="readArticle.content">
       </div>
       <div class="a-comment">
         <h3>{{readArticle.comments ? readArticle.comments.length : 0}}条留言</h3>
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-
+  import 'mavon-editor/dist/css/index.css'
   export default {
     name: '',
     props: ['isShow', 'readArticle'],
